@@ -31,11 +31,22 @@
 
 ### 📥 Installation
 
+#### Option 1: Manual Installation
+
 1. 📦 Download the latest `DanceKunKun.dmg` from [Releases](../../releases)
 2. 💿 Open the DMG file
 3. 📱 Drag DanceKunKun to your Applications folder
 4. 🚀 Launch DanceKunKun from Applications
 5. 🎉 Enjoy the dance! 
+
+#### Option 2: Homebrew
+
+```bash
+# Add tap
+brew tap ygsgdbd/tap
+# Install app
+brew install --cask dancekunkun
+```
 
 ### 🛠️ Build from Source
 
@@ -72,11 +83,22 @@ tuist generate
 
 ### 📥 安装方法
 
+#### 方式一：手动安装
+
 1. 📦 从 [Releases](../../releases) 页面下载最新的 `DanceKunKun.dmg`
 2. 💿 打开 DMG 文件
 3. 📱 将 DanceKunKun 拖到应用程序文件夹
 4. 🚀 从应用程序文件夹启动 DanceKunKun
 5. 🎉 享受舞蹈吧！
+
+#### 方式二：Homebrew
+
+```bash
+# 添加 tap
+brew tap ygsgdbd/tap
+# 安装应用
+brew install --cask dancekunkun
+```
 
 ### 🛠️ 从源码构建
 
