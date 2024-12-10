@@ -1,0 +1,130 @@
+name: Update Homebrew Tap
+
+on:
+  release:
+    types: [published, edited, released]
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  update-tap:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v4
+        with:
+          repository: ygsgdbd/homebrew-tap
+          token: ${{ secrets.TAP_TOKEN }}
+          path: homebrew-tap
+
+      - name: Get release info
+        id: release
+        run: |
+          # 获取版本号（移除 v 前缀如果存在）
+          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION=${VERSION#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+          # 构建下载 URL 并验证文件是否存在
+          DOWNLOAD_URL="https://github.com/ygsgdbd/DanceKunKun/releases/download/${GITHUB_REF#refs/tags/}/DanceKunKun.dmg"
+          HTTP_STATUS=$(curl -L -s -o DanceKunKun.dmg -w "%{http_code}" "$DOWNLOAD_URL")
+          
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "::error::Failed to download DMG file. HTTP status: $HTTP_STATUS"
+            exit 1
+          fi
+          
+          # 计算 SHA256
+          SHA256=$(shasum -a 256 DanceKunKun.dmg | cut -d ' ' -f 1)
+          if [ -z "$SHA256" ]; then
+            echo "::error::Failed to calculate SHA256"
+            exit 1
+          fi
+          echo "sha256=$SHA256" >> $GITHUB_OUTPUT
+          
+          # 输出信息用于调试
+          echo "Version: $VERSION"
+          echo "SHA256: $SHA256"
+
+      - name: Verify tap directory
+        run: |
+          cd homebrew-tap
+          mkdir -p Casks
+          if [ ! -d "Casks" ]; then
+            echo "::error::Failed to create Casks directory"
+            exit 1
+          fi
+
+      - name: Update formula
+        run: |
+          cd homebrew-tap
+          cat > Casks/dancekunkun.rb << EOL
+          cask "dancekunkun" do
+            version "${{ steps.release.outputs.version }}"
+            sha256 "${{ steps.release.outputs.sha256 }}"
+          
+            url "https://github.com/ygsgdbd/DanceKunKun/releases/download/v#{version}/DanceKunKun.dmg"
+            name "DanceKunKun"
+            desc "A fun macOS menu bar app featuring a dancing Cai Xukun that grooves to your CPU usage"
+            homepage "https://github.com/ygsgdbd/DanceKunKun"
+          
+            auto_updates false
+            depends_on macos: ">= :ventura"
+          
+            app "DanceKunKun.app"
+          
+            zap trash: [
+              "~/Library/Application Support/DanceKunKun",
+              "~/Library/Preferences/top.ygsgdbd.DanceKunKun.plist",
+              "~/Library/Caches/top.ygsgdbd.DanceKunKun"
+            ]
+          end
+          EOL
+
+      - name: Verify formula
+        run: |
+          cd homebrew-tap
+          if [ ! -f "Casks/dancekunkun.rb" ]; then
+            echo "::error::Formula file was not created"
+            exit 1
+          fi
+          
+          # 简单的语法检查
+          ruby -c Casks/dancekunkun.rb || {
+            echo "::error::Ruby syntax check failed"
+            exit 1
+          }
+
+      - name: Commit and push changes
+        run: |
+          cd homebrew-tap
+          git config user.name "GitHub Action Bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 检查是否有变更
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          git add Casks/dancekunkun.rb
+          git commit -m "Update dancekunkun to ${{ steps.release.outputs.version }}"
+          
+          # 添加重试逻辑
+          MAX_RETRIES=3
+          RETRY_COUNT=0
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if git push; then
+              echo "Successfully pushed changes"
+              exit 0
+            fi
+            RETRY_COUNT=$((RETRY_COUNT+1))
+            if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+              echo "Push failed, retrying in 5 seconds..."
+              sleep 5
+            fi
+          done
+          
+          echo "::error::Failed to push changes after $MAX_RETRIES attempts"
+          exit 1
