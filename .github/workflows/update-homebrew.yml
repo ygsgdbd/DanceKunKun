@@ -1,15 +1,17 @@
 name: Update Homebrew Tap
 
 on:
-  release:
-    types: [published, edited, released]
-  push:
-    tags:
-      - 'v*'
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
+    branches:
+      - main
 
 jobs:
   update-tap:
     runs-on: macos-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout tap
         uses: actions/checkout@v4
@@ -21,13 +23,14 @@ jobs:
       - name: Get release info
         id: release
         run: |
-          # 获取版本号（移除 v 前缀如果存在）
-          VERSION=${GITHUB_REF#refs/tags/}
-          VERSION=${VERSION#v}
+          # 获取最新的 release 信息
+          RELEASE_INFO=$(curl -s https://api.github.com/repos/ygsgdbd/DanceKunKun/releases/latest)
+          VERSION=$(echo "$RELEASE_INFO" | jq -r .tag_name | sed 's/^v//')
+          DOWNLOAD_URL=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name=="DanceKunKun.dmg") | .browser_download_url')
+          
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
-          # 构建下载 URL 并验证文件是否存在
-          DOWNLOAD_URL="https://github.com/ygsgdbd/DanceKunKun/releases/download/${GITHUB_REF#refs/tags/}/DanceKunKun.dmg"
+          # 下载并验证文件
           HTTP_STATUS=$(curl -L -s -o DanceKunKun.dmg -w "%{http_code}" "$DOWNLOAD_URL")
           
           if [ "$HTTP_STATUS" != "200" ]; then
