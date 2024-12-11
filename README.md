@@ -24,6 +24,13 @@
 - 🌓 Dark mode support
 - 🌍 Localization support (Simplified Chinese, Traditional Chinese, English)
 
+### 📋 Preview
+
+<div align="center">
+  <img src="Screenshots/dance.gif" width="200" alt="Dancing Preview">
+  <p><em>菜虚鲲随着 CPU 使用率跳舞 / Dancing with CPU usage</em></p>
+</div>
+
 ### 📋 Requirements
 
 - 🍎 macOS 13.0 or later
@@ -75,6 +82,13 @@ tuist generate
 - 🖥️ 通用二进制（同时支持 Apple Silicon 和 Intel Mac）
 - 🌓 支持深色模式
 - 🌍 支持本地化（简体中文、繁体中文、英文）
+
+### 📋 预览
+
+<div align="center">
+  <img src="Screenshots/dance.gif" width="200" alt="舞蹈预览">
+  <p><em>菜虚鲲随着 CPU 使用率跳舞 / Dancing with CPU usage</em></p>
+</div>
 
 ### 📋 系统要求
 
