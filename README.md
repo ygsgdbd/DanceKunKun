@@ -10,6 +10,12 @@
 > 
 > 一个有趣的 macOS 菜单栏应用，会随着 CPU 使用率跳舞的坤坤！使用 SwiftUI 构建 ❤️
 
+### 灵感来源
+
+本项目的灵感来源于 RunCat。特别感谢 [RunKun](https://github.com/Kobe972/RunKun) 字体项目的贡献，它为本应用增添了独特的视觉效果。如果你在终端中也想体验唱跳，可以参考这个项目。
+
+This project is inspired by RunCat. Special thanks to the [RunKun](https://github.com/Kobe972/RunKun) font project for its contribution, which adds a unique visual effect to this application. If you want to experience dancing in your terminal, you can refer to this project.
+
 [🌍 English](#english) | [🇨🇳 中文](#chinese)
 
 ## English
@@ -129,15 +135,3 @@ tuist generate
 ```
 
 4. 🎯 打开项目并构建
-
-## License
-
-MIT License ⚖️ 
-
-### 灵感来源
-
-本项目的灵感来源于 RunCat。
-
-### 字体来源
-
-使用的字体来自 [Zhiyin](https://github.com/Kobe972/RunKun)。
