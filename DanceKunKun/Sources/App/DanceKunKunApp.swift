@@ -21,7 +21,7 @@ struct DanceKunKunApp: App {
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
     private let animationController = FontAnimationController()
-    private let fontSize: CGFloat = 17
+    private let fontSize: CGFloat = 16
     private var notificationObserver: Any?
     private var cancellables = Set<AnyCancellable>()
     

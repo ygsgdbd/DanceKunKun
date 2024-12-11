@@ -28,14 +28,15 @@ let project = Project(
                 "LSUIElement": true,  // 设置为纯菜单栏应用
                 "CFBundleDevelopmentRegion": "zh-Hans",  // 设置默认开发区域为简体中文
                 "CFBundleLocalizations": ["zh-Hans", "zh-Hant", "en"],  // 支持的语言列表
-                "AppleLanguages": ["zh-Hans"]  // 设置默认���言为简体中文
+                "AppleLanguages": ["zh-Hans"]  // 设置默认语言为简体中文
             ]),
             sources: ["DanceKunKun/Sources/**"],
             resources: [
                 "DanceKunKun/Resources/**",
                 .folderReference(path: "DanceKunKun/Resources/zh-Hans.lproj"),
                 .folderReference(path: "DanceKunKun/Resources/zh-Hant.lproj"),
-                .folderReference(path: "DanceKunKun/Resources/en.lproj")
+                .folderReference(path: "DanceKunKun/Resources/en.lproj"),
+                .folderReference(path: "DanceKunKun/Assets"),
             ]
         )
     ]
