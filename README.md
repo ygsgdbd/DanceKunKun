@@ -6,15 +6,15 @@
 [![Platform](https://img.shields.io/badge/platform-macOS-lightgrey.svg?style=flat)](https://www.apple.com/macos)
 [![macOS](https://img.shields.io/badge/macOS-13.0+-orange.svg?style=flat&logo=apple&logoColor=white)](https://www.apple.com/macos)
 
-> 🕺 A fun macOS menu bar app featuring a dancing Cai Xukun that grooves to your CPU usage! Built with SwiftUI and love ❤️
+> 🕺 A fun macOS menu bar app featuring a dancing KunKun that grooves to your CPU usage! Built with SwiftUI and love ❤️
 > 
-> 一个有趣的 macOS 菜单栏应用，会随着 CPU 使用率跳舞的蔡徐坤！使用 SwiftUI 构建 ❤️
+> 一个有趣的 macOS 菜单栏应用，会随着 CPU 使用率跳舞的坤坤！使用 SwiftUI 构建 ❤️
 
 [🌍 English](#english) | [🇨🇳 中文](#chinese)
 
 ## English
 
-🎵 A fun macOS menu bar app featuring a dancing Cai Xukun that grooves to your CPU usage! 🎶
+🎵 A fun macOS menu bar app featuring a dancing KunKun that grooves to your CPU usage! 🎶
 
 ### ✨ Features
 
@@ -28,7 +28,7 @@
 
 <div align="center">
   <img src="Screenshots/dance.gif" width="200" alt="Dancing Preview">
-  <p><em>菜虚鲲随着 CPU 使用率跳舞 / Dancing with CPU usage</em></p>
+  <p><em>Dancing with CPU usage</em></p>
 </div>
 
 ### 📋 Requirements
@@ -73,7 +73,7 @@ tuist generate
 
 ## Chinese
 
-🎵 一个有趣的 macOS 菜单栏应用，会随着 CPU 使用率跳舞的蔡徐坤！🎶
+🎵 一个有趣的 macOS 菜单栏应用，会随着 CPU 使用率跳舞的坤坤！🎶
 
 ### ✨ 功能特点
 
@@ -87,7 +87,7 @@ tuist generate
 
 <div align="center">
   <img src="Screenshots/dance.gif" width="200" alt="舞蹈预览">
-  <p><em>菜虚鲲随着 CPU 使用率跳舞 / Dancing with CPU usage</em></p>
+  <p><em>坤坤随着 CPU 使用率跳舞</em></p>
 </div>
 
 ### 📋 系统要求
@@ -133,3 +133,11 @@ tuist generate
 ## License
 
 MIT License ⚖️ 
+
+### 灵感来源
+
+本项目的灵感来源于 RunCat。
+
+### 字体来源
+
+使用的字体来自 [Zhiyin](https://github.com/Kobe972/RunKun)。
