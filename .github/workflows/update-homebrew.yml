@@ -5,12 +5,10 @@ on:
     workflows: ["Release"]
     types:
       - completed
-    branches:
-      - main
 
 jobs:
   update-tap:
-    runs-on: macos-latest
+    runs-on: macos-14
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout tap
