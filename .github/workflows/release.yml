@@ -31,6 +31,11 @@ jobs:
       
       - name: Generate Xcode Project
         run: |
+          # 生成基于时间戳的构建号（格式：YYYYMMDDHHmm）
+          BUILD_NUMBER=$(date "+%Y%m%d%H%M")
+          # 替换 Project.swift 中的占位符
+          sed -i '' "s/@BUILD_NUMBER@/$BUILD_NUMBER/g" Project.swift
+          echo "Build number set to: $BUILD_NUMBER"
           tuist generate --no-open
       
       - name: Build App
@@ -56,11 +61,6 @@ jobs:
             "DanceKunKun.dmg" \
             "DerivedData/Build/Products/Release/DanceKunKun.app"
       
-      - name: Create Source Archives
-        run: |
-          zip -r "DanceKunKun-${{ github.ref_name }}-src.zip" . \
-            -x "*.git*" -x "build/*" -x "*.xcodeproj/*" -x "*.xcworkspace/*" -x "*.dmg" -x "DerivedData/*"
-      
       - name: Generate Checksums
         run: |
           echo "### DanceKunKun ${{ github.ref_name }}" > checksums.txt
@@ -70,7 +70,7 @@ jobs:
           echo "" >> checksums.txt
           echo "### SHA-256 Checksums" >> checksums.txt
           echo "\`\`\`" >> checksums.txt
-          shasum -a 256 DanceKunKun.dmg "DanceKunKun-${{ github.ref_name }}-src.zip" >> checksums.txt
+          shasum -a 256 DanceKunKun.dmg >> checksums.txt
           echo "\`\`\`" >> checksums.txt
       
       - name: Release
@@ -79,7 +79,6 @@ jobs:
         with:
           files: |
             DanceKunKun.dmg
-            DanceKunKun-${{ github.ref_name }}-src.zip
             checksums.txt
           body_path: checksums.txt
           draft: false
