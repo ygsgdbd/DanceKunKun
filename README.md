@@ -55,10 +55,8 @@ This project is inspired by RunCat. Special thanks to the [RunKun](https://githu
 #### Option 2: Homebrew
 
 ```bash
-# Add tap
-brew tap ygsgdbd/tap
 # Install app
-brew install --cask dancekunkun
+brew install --cask ygsgdbd/tap/dancekunkun
 ```
 
 ### 🛠️ Build from Source
