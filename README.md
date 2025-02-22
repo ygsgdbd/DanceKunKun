@@ -112,10 +112,8 @@ tuist generate
 #### 方式二：Homebrew
 
 ```bash
-# 添加 tap
-brew tap ygsgdbd/tap
 # 安装应用
-brew install --cask dancekunkun
+brew install --cask ygsgdbd/tap/dancekunkun
 ```
 
 ### 🛠️ 从源码构建
